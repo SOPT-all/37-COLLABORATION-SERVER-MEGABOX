@@ -24,6 +24,7 @@ public class ReservationController {
             description = """
             영화 예매 정보를 생성하는 API입니다.
             - Path Variable로 showtimeId(상영정보 ID)를 전달합니다.
+            - RequestBody로 memberId(예약자 ID), numOfPeople(예약 좌석수)를 전달합니다. 
             """
     )
     @PostMapping
