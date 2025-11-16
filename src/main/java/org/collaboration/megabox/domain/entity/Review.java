@@ -11,7 +11,8 @@ import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,10 +39,10 @@ public class Review {
     private String content;
 
     @Comment("리뷰 별점")
-    private Float rating;
+    private Integer rating;
 
-    @Comment("작성일")
-    private LocalDate createdAt;
+    @Comment("작성일시")
+    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
