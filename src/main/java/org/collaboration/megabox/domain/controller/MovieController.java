@@ -1,5 +1,6 @@
 package org.collaboration.megabox.domain.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.collaboration.megabox.domain.dto.response.MovieListResponse;
 import org.collaboration.megabox.domain.service.MovieService;
@@ -16,9 +17,13 @@ public class MovieController {
 
     private final MovieService movieService;
 
-    /**
-     * 영화 목록 조회 API
-     */
+    @Operation(
+        summary = "영화 목록 조회",
+        description = """
+            등록된 영화들의 기본 정보를 조회하는 API입니다.
+            - 정렬 기준: 영화 ID 오름차순
+            """
+    )
     @GetMapping
     public ResponseEntity<ApiResponse<MovieListResponse>> getList() {
         MovieListResponse response = movieService.getList();
