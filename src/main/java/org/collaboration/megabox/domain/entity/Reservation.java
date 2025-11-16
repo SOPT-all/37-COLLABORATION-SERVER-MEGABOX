@@ -14,6 +14,8 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.collaboration.megabox.global.exception.CustomException;
+import org.collaboration.megabox.global.exception.ErrorCode;
 import org.hibernate.annotations.Comment;
 
 @Getter
@@ -53,4 +55,18 @@ public class Reservation {
     )
     @Comment("회원")
     private Member member;
+
+    private Reservation(Showtime showtime, Member member, int numberOfPeople) {
+        this.showtime = showtime;
+        this.member = member;
+        this.numberOfPeople = numberOfPeople;
+    }
+
+    public static Reservation create(Showtime showtime, Member member, int numberOfPeople) {
+        if (!showtime.hasEnoughSeats(numberOfPeople)) {
+            throw new CustomException(ErrorCode.INSUFFICIENT_SEATS);
+        }
+        showtime.decreaseSeats(numberOfPeople);
+        return new Reservation(showtime, member, numberOfPeople);
+    }
 }

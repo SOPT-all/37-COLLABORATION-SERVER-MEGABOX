@@ -60,4 +60,12 @@ public class Showtime {
     )
     @Comment("영화")
     private Movie movie;
+
+    public boolean hasEnoughSeats(int numOfPeople) {
+        return leftSeatCount >= numOfPeople;
+    }
+
+    public void decreaseSeats(int numOfPeople) {
+        leftSeatCount -= numOfPeople;
+    }
 }
