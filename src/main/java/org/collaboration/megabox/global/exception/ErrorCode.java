@@ -13,9 +13,10 @@ public enum ErrorCode {
     FORBIDDEN(HttpStatus.FORBIDDEN, "FBD", "권한이 없습니다."),
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "UNA", "인증되지 않았습니다."),
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "BR", "잘못된 요청입니다."),
-    NOT_FOUND(HttpStatus.NOT_FOUND, "NF", "존재하지 않는 리소스입니다.");
+    NOT_FOUND(HttpStatus.NOT_FOUND, "NF", "존재하지 않는 리소스입니다."),
 
     /* ========== 도메인 ========== */
+    NOT_FOUND_MOVIE(HttpStatus.NOT_FOUND, "NOT_FOUND_MOVIE", "존재하지 않는 영화입니다.");
 
     private final HttpStatus httpStatus;
     private final String errorCode;
