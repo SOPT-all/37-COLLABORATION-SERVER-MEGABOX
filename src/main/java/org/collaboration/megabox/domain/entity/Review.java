@@ -37,6 +37,9 @@ public class Review {
     @Comment("리뷰 내용")
     private String content;
 
+    @Comment("리뷰 별점")
+    private Float rating;
+
     @Comment("작성일")
     private LocalDate createdAt;
 
