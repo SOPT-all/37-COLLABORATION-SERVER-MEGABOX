@@ -37,7 +37,7 @@ public class Movie {
     private Integer runningTimeMinutes;
 
     @Comment("현재 순위")
-    private Integer rank;
+    private Integer movieRank;
 
     @Comment("평점")
     private Float rating;
