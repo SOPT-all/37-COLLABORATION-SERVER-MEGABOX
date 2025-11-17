@@ -6,13 +6,11 @@ import org.collaboration.megabox.domain.dto.response.MovieDetailResponse;
 import org.collaboration.megabox.domain.dto.response.MovieListResponse;
 import org.collaboration.megabox.domain.dto.response.ReviewListResponse;
 import org.collaboration.megabox.domain.entity.Movie;
-import org.collaboration.megabox.domain.entity.Review;
 import org.collaboration.megabox.domain.repository.MovieRepository;
 import org.collaboration.megabox.global.exception.CustomException;
 import org.collaboration.megabox.global.exception.ErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.collaboration.megabox.domain.dto.response.ReviewListResponse.ReviewResponse;
 
 @Service
 @RequiredArgsConstructor
