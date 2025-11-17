@@ -27,14 +27,12 @@ public class ReservationController {
             """
     )
     @PostMapping
-    public ResponseEntity<ApiResponse<ReservationCreateResponse>> createReservation(
-            @RequestHeader("X-MEMBER-ID") Long memberId,
+    public ResponseEntity<ApiResponse<Void>> createReservation(
             @RequestHeader("memberId") Long memberId,
             @PathVariable("showtimeId") Long showtimeId,
             @RequestParam("numOfPeople") int numOfPeople
             ) {
-        ReservationCreateResponse response = reservationService.createReservation(memberId, showtimeId, request);
-        return ApiResponse.success(response);
-        ReservationCreateResponse response = reservationService.createReservation(memberId, showtimeId, numOfPeople);
+        reservationService.createReservation(memberId, showtimeId, numOfPeople);
+        return ApiResponse.success();
     }
 }
