@@ -31,6 +31,7 @@ public class ReservationController {
     @PostMapping
     public ResponseEntity<ApiResponse<ReservationCreateResponse>> createReservation(
             @RequestHeader("X-MEMBER-ID") Long memberId,
+            @RequestHeader("memberId") Long memberId,
             @PathVariable("showtimeId") Long showtimeId,
             @RequestBody @Valid ReservationCreateRequest request
             ) {
