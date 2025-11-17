@@ -2,10 +2,7 @@ package org.collaboration.megabox.global.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.servers.Server;
-import java.util.List;
-import org.springframework.context.annotation.Bean;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -14,20 +11,18 @@ import org.springframework.context.annotation.Configuration;
         title = "37-COLLABORATION-SERVER-MEGABOX Server API",
         version = "1.0",
         description = "DIVE SOPT 합동 세미나 모바일 웹 2조 메가박스 서버 API SWAGGER 입니다."
-    )
+    ),
+    servers = {
+        @Server(
+            url = "http://localhost:8080",
+            description = "Local Server"
+        ),
+        @Server(
+            url = "http://15.165.214.75:8080",
+            description = "Prod Server"
+        )
+    }
 )
 public class SwaggerConfig {
 
-    @Bean
-    public OpenAPI customOpenAPI() {
-        Server localServer = new Server()
-            .url("http://localhost:8080")
-            .description("Local Server");
-
-//        Server prodServer = new Server()
-//            .url("")
-//            .description("Prod Server");
-
-        return new OpenAPI().servers(List.of(localServer));
-    }
 }
