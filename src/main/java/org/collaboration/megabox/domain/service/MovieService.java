@@ -37,9 +37,6 @@ public class MovieService {
         Movie movie = movieRepository.getMovieWithReviews(movieId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_MOVIE));
 
-        List<Review> reviews = movie.getReviews();
-        List<ReviewResponse> reviewResponses =ReviewResponse.from(reviews);
-
-        return ReviewListResponse.of(reviews.size(), reviewResponses);
+        return ReviewListResponse.from(movie);
     }
 }

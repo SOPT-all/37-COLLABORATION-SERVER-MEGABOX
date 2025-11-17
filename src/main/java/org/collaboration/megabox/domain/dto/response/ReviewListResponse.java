@@ -1,5 +1,6 @@
 package org.collaboration.megabox.domain.dto.response;
 
+import org.collaboration.megabox.domain.entity.Movie;
 import org.collaboration.megabox.domain.entity.Review;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,8 +9,14 @@ public record ReviewListResponse(
         Integer reviewCount,
         List<ReviewResponse> reviews
 ) {
-    public static ReviewListResponse of(int reviewCount, List<ReviewResponse> reviews) {
-        return new ReviewListResponse(reviewCount, reviews);
+    public static ReviewListResponse from(Movie movie) {
+        List<ReviewResponse> reviewResponses = movie.getReviews().stream()
+                .map(ReviewResponse::from)
+                .toList();
+        return new ReviewListResponse(
+                reviewResponses.size(),
+                reviewResponses
+        );
     }
 
     public record ReviewResponse(
@@ -29,12 +36,6 @@ public record ReviewListResponse(
                     review.getContent(),
                     review.getCreatedAt()
             );
-        }
-
-        public static List<ReviewResponse> from(List<Review> reviews) {
-            return reviews.stream()
-                    .map(ReviewResponse::from)
-                    .toList();
         }
     }
 }
