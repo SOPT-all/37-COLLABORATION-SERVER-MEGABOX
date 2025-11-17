@@ -23,10 +23,10 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     @Transactional
-    public ReservationCreateResponse createReservation(Long showtimeId, ReservationCreateRequest request) {
+    public ReservationCreateResponse createReservation(Long memberId, Long showtimeId, ReservationCreateRequest request) {
         Showtime showtime = showtimeRepository.findByIdWithLock(showtimeId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_SHOWTIME));
-        Member member = memberRepository.findById(request.memberId())
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
         Reservation reservation = Reservation.create(showtime, member, request.numOfPeople());
 
