@@ -12,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.collaboration.megabox.global.exception.CustomException;
@@ -56,6 +57,7 @@ public class Reservation {
     @Comment("회원")
     private Member member;
 
+    @Builder
     private Reservation(Showtime showtime, Member member, int numberOfPeople) {
         this.showtime = showtime;
         this.member = member;
@@ -68,5 +70,10 @@ public class Reservation {
         }
         showtime.decreaseSeats(numberOfPeople);
         return new Reservation(showtime, member, numberOfPeople);
+        return Reservation.builder()
+                .showtime(showtime)
+                .member(member)
+                .numberOfPeople(numberOfPeople)
+                .build();
     }
 }
