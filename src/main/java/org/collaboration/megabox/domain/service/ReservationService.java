@@ -1,7 +1,6 @@
 package org.collaboration.megabox.domain.service;
 
 import lombok.RequiredArgsConstructor;
-import org.collaboration.megabox.domain.dto.request.ReservationCreateRequest;
 import org.collaboration.megabox.domain.dto.response.ReservationCreateResponse;
 import org.collaboration.megabox.domain.entity.Member;
 import org.collaboration.megabox.domain.entity.Reservation;
@@ -23,12 +22,12 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     @Transactional
-    public ReservationCreateResponse createReservation(Long memberId, Long showtimeId, ReservationCreateRequest request) {
+    public ReservationCreateResponse createReservation(Long memberId, Long showtimeId, int numOfPeople) {
         Showtime showtime = showtimeRepository.findByIdWithLock(showtimeId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_SHOWTIME));
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_MEMBER));
-        Reservation reservation = Reservation.create(showtime, member, request.numOfPeople());
+        Reservation reservation = Reservation.create(showtime, member, numOfPeople);
 
         reservationRepository.save(reservation);
         return ReservationCreateResponse.from(reservation);

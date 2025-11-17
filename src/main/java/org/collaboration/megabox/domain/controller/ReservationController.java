@@ -2,9 +2,7 @@ package org.collaboration.megabox.domain.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.collaboration.megabox.domain.dto.request.ReservationCreateRequest;
 import org.collaboration.megabox.domain.dto.response.ReservationCreateResponse;
 import org.collaboration.megabox.domain.service.ReservationService;
 import org.collaboration.megabox.global.common.dto.ApiResponse;
@@ -33,9 +31,10 @@ public class ReservationController {
             @RequestHeader("X-MEMBER-ID") Long memberId,
             @RequestHeader("memberId") Long memberId,
             @PathVariable("showtimeId") Long showtimeId,
-            @RequestBody @Valid ReservationCreateRequest request
+            @RequestParam("numOfPeople") int numOfPeople
             ) {
         ReservationCreateResponse response = reservationService.createReservation(memberId, showtimeId, request);
         return ApiResponse.success(response);
+        ReservationCreateResponse response = reservationService.createReservation(memberId, showtimeId, numOfPeople);
     }
 }
