@@ -55,6 +55,6 @@ public class Movie {
     private String summary;
 
     @Comment("영화 관람평")
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "movie")
     private List<Review> reviews = new ArrayList<>();
 }
