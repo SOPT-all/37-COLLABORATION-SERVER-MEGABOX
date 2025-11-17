@@ -23,13 +23,14 @@ public class ReservationController {
             summary = "영화 예매",
             description = """
             영화 예매 정보를 생성하는 API입니다.
+            - Request Header로 memberId(예약자 ID)를 전달합니다.
             - Path Variable로 showtimeId(상영정보 ID)를 전달합니다.
-            - RequestBody로 memberId(예약자 ID), numOfPeople(예약 좌석수)를 전달합니다. 
+            - RequestBody로 numOfPeople(예약 좌석수)를 전달합니다.
             """
     )
     @PostMapping
     public ResponseEntity<ApiResponse<ReservationCreateResponse>> createReservation(
-            @RequestHeader(name = "X-MEMBER-ID") Long memberId,
+            @RequestHeader("X-MEMBER-ID") Long memberId,
             @PathVariable("showtimeId") Long showtimeId,
             @RequestBody @Valid ReservationCreateRequest request
             ) {
