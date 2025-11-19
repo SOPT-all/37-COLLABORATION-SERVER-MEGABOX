@@ -3,7 +3,6 @@ package org.collaboration.megabox.domain.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.collaboration.megabox.domain.dto.response.ReservationCreateResponse;
 import org.collaboration.megabox.domain.service.ReservationService;
 import org.collaboration.megabox.global.common.dto.ApiResponse;
 import org.springframework.http.ResponseEntity;

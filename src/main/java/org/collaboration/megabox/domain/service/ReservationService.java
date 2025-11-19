@@ -21,8 +21,11 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     @Transactional
-    public ReservationCreateResponse createReservation(Long memberId, Long showtimeId, int numOfPeople) {
     public void createReservation(Long memberId, Long showtimeId, int numOfPeople) {
+        if (numOfPeople <= 0) {
+            throw new CustomException(ErrorCode.INVALID_SEAT_COUNT);
+        }
+
         Showtime showtime = showtimeRepository.findByIdWithLock(showtimeId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_SHOWTIME));
         Member member = memberRepository.findById(memberId)
