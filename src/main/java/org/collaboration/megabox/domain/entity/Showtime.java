@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.collaboration.megabox.global.exception.CustomException;
+import org.collaboration.megabox.global.exception.ErrorCode;
 import org.hibernate.annotations.Comment;
 
 @Getter
@@ -60,4 +62,12 @@ public class Showtime {
     )
     @Comment("영화")
     private Movie movie;
+
+    public void reserve(int numOfPeople) {
+        if (this.leftSeatCount < numOfPeople) {
+            throw new CustomException(ErrorCode.INSUFFICIENT_SEATS);
+        }
+
+        this.leftSeatCount -= numOfPeople;
+    }
 }

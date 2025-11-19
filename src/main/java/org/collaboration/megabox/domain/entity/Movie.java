@@ -1,10 +1,10 @@
 package org.collaboration.megabox.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,4 +53,8 @@ public class Movie {
 
     @Comment("요약 설명")
     private String summary;
+
+    @Comment("영화 관람평")
+    @OneToMany(mappedBy = "movie")
+    private List<Review> reviews = new ArrayList<>();
 }
