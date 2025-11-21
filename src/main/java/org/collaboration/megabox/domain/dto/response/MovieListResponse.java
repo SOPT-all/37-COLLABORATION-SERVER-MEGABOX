@@ -1,5 +1,6 @@
 package org.collaboration.megabox.domain.dto.response;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.collaboration.megabox.domain.entity.Movie;
 
@@ -18,13 +19,19 @@ public record MovieListResponse(
     public record MovieSummaryResponse(
         Long id,
         String title,
-        String tag
+        String tag,
+        Integer ageRating,
+        LocalDate releaseDate,
+        Integer runningTimeMinutes
     ) {
         public static MovieSummaryResponse from(Movie movie) {
             return new MovieSummaryResponse(
                 movie.getMovieId(),
                 movie.getTitle(),
-                movie.getTag()
+                movie.getTag(),
+                movie.getAgeRating(),
+                movie.getReleaseDate(),
+                movie.getRunningTimeMinutes()
             );
         }
     }
