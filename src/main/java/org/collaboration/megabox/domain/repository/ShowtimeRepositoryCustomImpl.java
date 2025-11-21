@@ -16,9 +16,8 @@ public class ShowtimeRepositoryCustomImpl implements ShowtimeRepositoryCustom {
 
     private final JPAQueryFactory query;
 
-
     @Override
-    public List<Showtime> findShowtimes(List<Long> movieIds, LocalDate date, String timeSlot) {
+    public List<Showtime> findShowtimes(List<Long> movieIds, LocalDate date, TimeSlot timeSlot) {
         QShowtime s = QShowtime.showtime;
         QMovie m = QMovie.movie;
         QTheater t = QTheater.theater;
@@ -39,12 +38,7 @@ public class ShowtimeRepositoryCustomImpl implements ShowtimeRepositoryCustom {
 
         // 시간대 선택
         if (timeSlot != null) {
-            switch (timeSlot) {
-                case "morning" -> builder.and(s.startTime.hour().between(6, 11));
-                case "afternoon" -> builder.and(s.startTime.hour().between(12, 17));
-                case "evening" -> builder.and(s.startTime.hour().between(18, 21));
-                case "night" -> builder.and(s.startTime.hour().goe(22).or(s.startTime.hour().loe(5)));
-            }
+            builder.and(timeSlot.toPredicate(s.startTime));
         }
 
         return query.select(s)
