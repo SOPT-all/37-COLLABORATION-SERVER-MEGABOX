@@ -3,6 +3,7 @@ package org.collaboration.megabox.domain.service;
 import lombok.RequiredArgsConstructor;
 import org.collaboration.megabox.domain.dto.response.CinemaShowtimeResponse;
 import org.collaboration.megabox.domain.dto.response.ShowtimeBeforeReservationResponse;
+import org.collaboration.megabox.domain.dto.response.ShowtimeReadResponse;
 import org.collaboration.megabox.domain.entity.Showtime;
 import org.collaboration.megabox.domain.repository.ShowtimeRepository;
 import org.collaboration.megabox.global.exception.CustomException;
@@ -10,7 +11,6 @@ import org.collaboration.megabox.global.exception.ErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -26,8 +26,12 @@ public class ShowtimeService {
         return ShowtimeBeforeReservationResponse.from(showtime);
     }
 
-    public CinemaShowtimeResponse getShowtimes(List<Long> movieIds, LocalDate date, String timeSlot) {
-        List<Showtime> showtimes = showtimeRepository.findShowtimes(movieIds, date, timeSlot);
+    public CinemaShowtimeResponse getShowtimes(ShowtimeReadResponse request) {
+        List<Showtime> showtimes = showtimeRepository.findShowtimes(
+                request.movieIds(),
+                request.date(),
+                request.timeSlot()
+        );
         return CinemaShowtimeResponse.from(showtimes);
     }
 }

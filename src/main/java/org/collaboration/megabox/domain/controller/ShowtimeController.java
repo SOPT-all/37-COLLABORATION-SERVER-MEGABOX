@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.collaboration.megabox.domain.dto.response.CinemaShowtimeResponse;
 import org.collaboration.megabox.domain.dto.response.ShowtimeBeforeReservationResponse;
+import org.collaboration.megabox.domain.dto.response.ShowtimeReadResponse;
 import org.collaboration.megabox.domain.service.ShowtimeService;
 import org.collaboration.megabox.global.common.dto.ApiResponse;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -46,11 +47,9 @@ public class ShowtimeController {
     )
     @GetMapping
     public ResponseEntity<ApiResponse<CinemaShowtimeResponse>> getShowtimes(
-            @RequestParam("movieIds") List<Long> movieIds,
-            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam("timeSlot") String timeSlot
+            @ModelAttribute ShowtimeReadResponse request
     ) {
-        CinemaShowtimeResponse response = showtimeService.getShowtimes(movieIds, date, timeSlot);
+        CinemaShowtimeResponse response = showtimeService.getShowtimes(request);
         return ApiResponse.success(response);
     }
 }
