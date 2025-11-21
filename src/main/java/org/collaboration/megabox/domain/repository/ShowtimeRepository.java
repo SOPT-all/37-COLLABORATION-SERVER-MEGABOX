@@ -3,13 +3,12 @@ package org.collaboration.megabox.domain.repository;
 import org.collaboration.megabox.domain.entity.Showtime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import jakarta.persistence.LockModeType;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
+public interface ShowtimeRepository extends JpaRepository<Showtime, Long>, ShowtimeRepositoryCustom {
 
     @Query("""
         SELECT s
