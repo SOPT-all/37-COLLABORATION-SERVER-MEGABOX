@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.util.List;
 
-public record ShowtimeReadResponse(
+public record ShowtimeReadRequest(
         List<Long> movieIds,
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
         TimeSlot timeSlot

@@ -3,17 +3,13 @@ package org.collaboration.megabox.domain.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.collaboration.megabox.domain.dto.response.CinemaShowtimeResponse;
 import org.collaboration.megabox.domain.dto.response.ShowtimeBeforeReservationResponse;
-import org.collaboration.megabox.domain.dto.response.ShowtimeReadResponse;
+import org.collaboration.megabox.domain.dto.response.ShowtimeHierarchyResponse;
+import org.collaboration.megabox.domain.dto.response.ShowtimeReadRequest;
 import org.collaboration.megabox.domain.service.ShowtimeService;
 import org.collaboration.megabox.global.common.dto.ApiResponse;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Tag(name = "상영정보 API", description = "상영정보 관련 API입니다.")
 @RestController
@@ -46,10 +42,10 @@ public class ShowtimeController {
             """
     )
     @GetMapping
-    public ResponseEntity<ApiResponse<CinemaShowtimeResponse>> getShowtimes(
-            @ModelAttribute ShowtimeReadResponse request
+    public ResponseEntity<ApiResponse<ShowtimeHierarchyResponse>> getShowtimes(
+            @ModelAttribute ShowtimeReadRequest request
     ) {
-        CinemaShowtimeResponse response = showtimeService.getShowtimes(request);
+        ShowtimeHierarchyResponse response = showtimeService.getShowtimes(request);
         return ApiResponse.success(response);
     }
 }

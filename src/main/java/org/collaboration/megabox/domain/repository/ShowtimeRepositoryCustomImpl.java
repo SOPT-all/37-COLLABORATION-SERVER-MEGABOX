@@ -1,6 +1,7 @@
 package org.collaboration.megabox.domain.repository;
 
 import com.querydsl.core.BooleanBuilder;
+import static com.querydsl.core.group.GroupBy.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.collaboration.megabox.domain.entity.*;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+
 
 @Repository
 @RequiredArgsConstructor
@@ -17,7 +20,7 @@ public class ShowtimeRepositoryCustomImpl implements ShowtimeRepositoryCustom {
     private final JPAQueryFactory query;
 
     @Override
-    public List<Showtime> findShowtimes(List<Long> movieIds, LocalDate date, TimeSlot timeSlot) {
+    public Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>>  findShowtimes(List<Long> movieIds, LocalDate date, TimeSlot timeSlot) {
         QShowtime s = QShowtime.showtime;
         QMovie m = QMovie.movie;
         QTheater t = QTheater.theater;
@@ -47,6 +50,20 @@ public class ShowtimeRepositoryCustomImpl implements ShowtimeRepositoryCustom {
                 .join(s.theater, t).fetchJoin()
                 .join(t.cinema, c).fetchJoin()
                 .where(builder)
-                .fetch();
+                .orderBy(
+                        c.name.asc(),
+                        m.title.asc(),
+                        t.name.asc(),
+                        s.startTime.asc()
+                )
+                .transform(
+                        groupBy(c).as(  // 영화관별 그룹핑
+                                map(m,  // 영화별 그룹핑
+                                        map(t,  // 상영관별 그룹핑
+                                                list(s)  // 그룹핑에 맞춰 상영정보 리스트로
+                                        )
+                                )
+                        )
+                );
     }
 }
