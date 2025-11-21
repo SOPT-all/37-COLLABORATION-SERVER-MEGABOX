@@ -19,7 +19,7 @@ public record CinemaShowtimeResponse(
         List<Showtime> sorted = showtimes.stream()
                 .sorted(Comparator.comparing(
                             (Showtime s) -> s.getTheater().getCinema().getName()
-                        ).thenComparing(s -> s.getMovie().getMovieRank())
+                        ).thenComparing(s -> s.getMovie().getTitle())
                         .thenComparing(s -> s.getTheater().getName())
                         .thenComparing(Showtime::getStartTime)
                 ).toList();
