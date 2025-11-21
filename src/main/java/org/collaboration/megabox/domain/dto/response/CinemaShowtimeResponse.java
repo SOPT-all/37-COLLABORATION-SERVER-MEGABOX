@@ -24,7 +24,7 @@ public record CinemaShowtimeResponse(
                         .thenComparing(Showtime::getStartTime)
                 ).toList();
 
-        List<CinemaResponse> cinemas = sorted.stream()
+        Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>> groupedCinemas = sorted.stream()
                 // 그룹핑: 영화관 -> 영화 -> 상영관 (LinkedHashMap을 이용한 정렬 유지)
                 .collect(Collectors.groupingBy(
                         s -> s.getTheater().getCinema(),
@@ -38,8 +38,8 @@ public record CinemaShowtimeResponse(
                                         Collectors.toList()
                                 )
                         )
-                ))
-                .entrySet().stream()
+                ));
+        List<CinemaResponse> cinemas = groupedCinemas.entrySet().stream()
                 .map(CinemaResponse::from)
                 .collect(Collectors.toList());
 
@@ -50,7 +50,9 @@ public record CinemaShowtimeResponse(
             String cinemaName,
             List<MovieResponse> movies
     ) {
-        public static CinemaResponse from(Map.Entry<Cinema, ? extends Map<Movie, ? extends Map<Theater, List<Showtime>>>> cinemaEntry) {
+        public static CinemaResponse from(
+                Map.Entry<Cinema, Map<Movie, Map<Theater, List<Showtime>>>> cinemaEntry
+        ) {
             List<MovieResponse> movies = cinemaEntry.getValue().entrySet().stream()
                     .map(MovieResponse::from)
                     .collect(Collectors.toList());
@@ -61,7 +63,9 @@ public record CinemaShowtimeResponse(
                 String movieTitle,
                 List<TheaterResponse> theaters
         ) {
-            public static MovieResponse from(Map.Entry<Movie, ? extends Map<Theater, List<Showtime>>> movieEntry) {
+            public static MovieResponse from(
+                    Map.Entry<Movie, Map<Theater, List<Showtime>>> movieEntry
+            ) {
                 List<TheaterResponse> theaters = movieEntry.getValue().entrySet().stream()
                         .map(TheaterResponse::from)
                         .collect(Collectors.toList());
@@ -73,7 +77,9 @@ public record CinemaShowtimeResponse(
                     String screenType,
                     List<ShowtimeResponse> showtimes
             ) {
-                public static TheaterResponse from(Map.Entry<Theater, ? extends List<Showtime>>  theaterEntry) {
+                public static TheaterResponse from(
+                        Map.Entry<Theater, List<Showtime>> theaterEntry
+                ) {
                     Theater theater = theaterEntry.getKey();
                     List<ShowtimeResponse> showtimes = theaterEntry.getValue().stream()
                             .map(showtime -> ShowtimeResponse.from(showtime, theater))
