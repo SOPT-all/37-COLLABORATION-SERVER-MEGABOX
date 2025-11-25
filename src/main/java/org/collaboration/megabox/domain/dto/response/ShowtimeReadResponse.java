@@ -39,6 +39,7 @@ public record ShowtimeReadResponse(
 
     public record MovieResponse(
             String movieTitle,
+            Integer ageRating,
             List<TheaterResponse> theaters
     ) {
         public static MovieResponse from(
@@ -49,7 +50,7 @@ public record ShowtimeReadResponse(
                     .map(TheaterResponse::from)
                     .toList();
 
-            return new MovieResponse(movie.getTitle(), theaters);
+            return new MovieResponse(movie.getTitle(), movie.getAgeRating(), theaters);
         }
     }
 
