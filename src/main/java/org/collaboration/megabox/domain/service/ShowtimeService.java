@@ -2,8 +2,8 @@ package org.collaboration.megabox.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import org.collaboration.megabox.domain.dto.response.ShowtimeBeforeReservationResponse;
-import org.collaboration.megabox.domain.dto.response.ShowtimeHierarchyResponse;
 import org.collaboration.megabox.domain.dto.response.ShowtimeReadRequest;
+import org.collaboration.megabox.domain.dto.response.ShowtimeReadResponse;
 import org.collaboration.megabox.domain.entity.Cinema;
 import org.collaboration.megabox.domain.entity.Movie;
 import org.collaboration.megabox.domain.entity.Showtime;
@@ -30,12 +30,12 @@ public class ShowtimeService {
         return ShowtimeBeforeReservationResponse.from(showtime);
     }
 
-    public ShowtimeHierarchyResponse getShowtimes(ShowtimeReadRequest request) {
-        Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>> showtimes = showtimeRepository.findShowtimes(
+    public ShowtimeReadResponse getShowtimes(ShowtimeReadRequest request) {
+        Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>> showtimes = showtimeRepository.getShowtimes(
                 request.movieIds(),
                 request.date(),
                 request.timeSlot()
         );
-        return ShowtimeHierarchyResponse.from(showtimes);
+        return ShowtimeReadResponse.from(showtimes);
     }
 }

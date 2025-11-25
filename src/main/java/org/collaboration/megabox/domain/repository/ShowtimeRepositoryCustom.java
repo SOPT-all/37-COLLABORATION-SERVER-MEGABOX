@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface ShowtimeRepositoryCustom {
 
-    Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>>  findShowtimes(
+    Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>>  getShowtimes(
             List<Long> movieIds,
             LocalDate date,
             TimeSlot timeSlot

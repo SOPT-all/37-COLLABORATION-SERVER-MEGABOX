@@ -20,7 +20,7 @@ public class ShowtimeRepositoryCustomImpl implements ShowtimeRepositoryCustom {
     private final JPAQueryFactory query;
 
     @Override
-    public Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>>  findShowtimes(List<Long> movieIds, LocalDate date, TimeSlot timeSlot) {
+    public Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>>  getShowtimes(List<Long> movieIds, LocalDate date, TimeSlot timeSlot) {
         QShowtime s = QShowtime.showtime;
         QMovie m = QMovie.movie;
         QTheater t = QTheater.theater;
