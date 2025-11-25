@@ -26,8 +26,8 @@ public class ShowtimeRepositoryCustomImpl implements ShowtimeRepositoryCustom {
         QTheater t = QTheater.theater;
         QCinema c = QCinema.cinema;
 
-        LocalDateTime start = date.atStartOfDay();
-        LocalDateTime end = date.atTime(23, 59);
+        LocalDateTime start = date.equals(LocalDate.now()) ? LocalDateTime.now() : date.atStartOfDay();
+        LocalDateTime end = date.plusDays(1).atTime(4, 59);
 
         BooleanBuilder builder = new BooleanBuilder();
 
