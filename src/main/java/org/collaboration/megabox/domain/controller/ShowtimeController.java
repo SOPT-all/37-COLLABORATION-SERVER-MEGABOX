@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.collaboration.megabox.domain.dto.response.ShowtimeBeforeReservationResponse;
-import org.collaboration.megabox.domain.dto.response.ShowtimeHierarchyResponse;
+import org.collaboration.megabox.domain.dto.response.ShowtimeReadResponse;
 import org.collaboration.megabox.domain.dto.response.ShowtimeReadRequest;
 import org.collaboration.megabox.domain.service.ShowtimeService;
 import org.collaboration.megabox.global.common.dto.ApiResponse;
@@ -42,10 +42,8 @@ public class ShowtimeController {
             """
     )
     @GetMapping
-    public ResponseEntity<ApiResponse<ShowtimeHierarchyResponse>> getShowtimes(
-            @ModelAttribute ShowtimeReadRequest request
-    ) {
-        ShowtimeHierarchyResponse response = showtimeService.getShowtimes(request);
+    public ResponseEntity<ApiResponse<ShowtimeReadResponse>> getShowtimes(ShowtimeReadRequest request) {
+        ShowtimeReadResponse response = showtimeService.getShowtimes(request);
         return ApiResponse.success(response);
     }
 }

@@ -20,14 +20,14 @@ public class ShowtimeRepositoryCustomImpl implements ShowtimeRepositoryCustom {
     private final JPAQueryFactory query;
 
     @Override
-    public Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>>  findShowtimes(List<Long> movieIds, LocalDate date, TimeSlot timeSlot) {
+    public Map<Cinema, Map<Movie, Map<Theater, List<Showtime>>>>  getShowtimes(List<Long> movieIds, LocalDate date, TimeSlot timeSlot) {
         QShowtime s = QShowtime.showtime;
         QMovie m = QMovie.movie;
         QTheater t = QTheater.theater;
         QCinema c = QCinema.cinema;
 
-        LocalDateTime start = date.atStartOfDay();
-        LocalDateTime end = date.atTime(23, 59);
+        LocalDateTime start = date.equals(LocalDate.now()) ? LocalDateTime.now() : date.atStartOfDay();
+        LocalDateTime end = date.plusDays(1).atTime(4, 59);
 
         BooleanBuilder builder = new BooleanBuilder();
 
